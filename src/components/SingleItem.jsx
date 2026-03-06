@@ -1,6 +1,6 @@
 import { FiEdit2, FiTrash2 } from "react-icons/fi";
 
-const SingleItem = ({ item, editCompleted, removeItem }) => {
+const SingleItem = ({ item, editCompleted, removeItem, startEdit }) => {
   return (
     <div className="single-item">
       <input
@@ -17,7 +17,11 @@ const SingleItem = ({ item, editCompleted, removeItem }) => {
         {item.name}
       </p>
 
-      <button className="btn edit-btn" type="button">
+      <button
+        className="btn edit-btn"
+        type="button"
+        onClick={() => startEdit(item.id, item.name)}
+      >
         <FiEdit2 size={18} />
       </button>
 
