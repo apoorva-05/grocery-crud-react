@@ -1,57 +1,131 @@
+* {
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
-  background: #f1f5f8;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: "Segoe UI", Arial, sans-serif;
+
+  /* background image */
+  background: url("./assets/background.jpg") center/cover no-repeat;
+
+  min-height: 100vh;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
+/* gradient overlay */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.2));
+  z-index: -1;
+}
+
+/* floating glass card */
 .section-center {
   width: 90vw;
-  max-width: 600px;
-  margin: 5rem auto;
-  background: white;
-  border-radius: 8px;
+  max-width: 550px;
+
   padding: 2rem;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  border-radius: 16px;
+
+  background: rgba(255, 255, 255, 0.15);
+
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+
+  border: 1px solid rgba(255, 255, 255, 0.3);
+
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+
+  transition: transform 0.3s ease;
 }
 
+/* floating effect */
+.section-center:hover {
+  transform: translateY(-6px);
+}
+
+/* form layout */
+.form-control {
+  display: grid;
+  grid-template-columns: 1fr 100px;
+  margin-bottom: 2rem;
+}
+
+.form-input {
+  padding: 12px;
+  border: none;
+  outline: none;
+  border-radius: 8px 0 0 8px;
+}
+
+/* add button */
+.btn {
+  border: none;
+  cursor: pointer;
+  border-radius: 0 8px 8px 0;
+  background: #06b6d4;
+  color: white;
+  font-weight: 500;
+
+  transition: all 0.25s ease;
+}
+
+.btn:hover {
+  background: #0891b2;
+}
+
+/* items container */
 .items {
   display: grid;
-  row-gap: 1rem;
+  row-gap: 0.8rem;
 }
 
+/* single grocery item */
 .single-item {
   display: grid;
   grid-template-columns: auto 1fr auto auto;
+
   align-items: center;
-  gap: 1rem;
+  column-gap: 1rem;
+
+  padding: 12px;
+  border-radius: 8px;
+
+  background: rgba(255, 255, 255, 0.2);
+
+  transition: all 0.25s ease;
+}
+
+.single-item:hover {
+  background: rgba(255, 255, 255, 0.35);
+  transform: scale(1.02);
 }
 
 .single-item p {
   margin: 0;
-  font-size: 18px;
+  font-size: 17px;
 }
 
-.btn {
-  border: none;
-  padding: 6px 8px;
-  border-radius: 6px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
+/* buttons */
 .edit-btn {
-  background: #0ea5b7;
+  background: #06b6d4;
   color: white;
+  border-radius: 6px;
 }
 
 .remove-btn {
-  background: #222;
+  background: #111;
   color: white;
+  border-radius: 6px;
 }
 
+/* toast notification */
 .Toastify__toast {
-  top: 80px;
   text-transform: capitalize;
 }
