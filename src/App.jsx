@@ -4,7 +4,7 @@ import { groceryItems } from "./data/groceryItems";
 
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import "./app.css";
+import "./App.css";
 
 import { nanoid } from "nanoid";
 import Form from "./components/Form";
