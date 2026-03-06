@@ -5,14 +5,14 @@ import { groceryItems } from "./data/groceryItems";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./app.css";
-import bg from "./assets/background.jpg";
+
 import { nanoid } from "nanoid";
 import Form from "./components/Form";
 
 const getLocalStorage = () => {
   let list = localStorage.getItem("grocery-list");
   if (list) {
-    return JSON.parse(localStorage.getItem("grocery-list"));
+    return JSON.parse(list);
   } else {
     return groceryItems;
   }
@@ -23,7 +23,6 @@ const App = () => {
   const [editId, setEditId] = useState(null);
   const [editText, setEditText] = useState("");
 
-  // Save to local storage whenever items change
   useEffect(() => {
     localStorage.setItem("grocery-list", JSON.stringify(items));
   }, [items]);
@@ -35,29 +34,25 @@ const App = () => {
       id: nanoid(),
     };
 
-    const newItems = [...items, newItem];
-    setItems(newItems);
-
+    setItems([...items, newItem]);
     toast.success("grocery item added");
   };
 
   const removeItem = (id) => {
     const newItems = items.filter((item) => item.id !== id);
     setItems(newItems);
-
     toast.success("item deleted");
+  };
+
+  const clearAllItems = () => {
+    setItems([]);
+    toast.success("all items cleared");
   };
 
   const editCompleted = (id) => {
     const newItems = items.map((item) => {
       if (item.id === id) {
-        const updated = { ...item, completed: !item.completed };
-
-        if (updated.completed) {
-          toast.success("item completed");
-        }
-
-        return updated;
+        return { ...item, completed: !item.completed };
       }
       return item;
     });
@@ -81,7 +76,6 @@ const App = () => {
     setItems(newItems);
     setEditId(null);
     setEditText("");
-
     toast.success("item updated");
   };
 
@@ -103,6 +97,12 @@ const App = () => {
         removeItem={removeItem}
         startEdit={startEdit}
       />
+
+      {items.length > 0 && (
+        <button className="clear-btn" onClick={clearAllItems}>
+          Clear All
+        </button>
+      )}
     </section>
   );
 };
