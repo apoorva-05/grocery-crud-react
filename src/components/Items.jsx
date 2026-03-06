@@ -1,31 +1,16 @@
-const Items = ({ items, toggleCompleted }) => {
+import SingleItem from "./SingleItem";
+
+const Items = ({ items, editCompleted, removeItem }) => {
   return (
     <div className="items">
       {items.map((item) => {
         return (
-          <div className="single-item" key={item.id}>
-            <input
-              type="checkbox"
-              checked={item.completed}
-              onChange={() => toggleCompleted(item.id)}
-            />
-
-            <p
-              style={{
-                textDecoration: item.completed ? "line-through" : "none",
-              }}
-            >
-              {item.name}
-            </p>
-
-            <button className="btn edit-btn">
-              <i className="fa-regular fa-pen-to-square"></i>
-            </button>
-
-            <button className="btn delete-btn">
-              <i className="fa-regular fa-trash-can"></i>
-            </button>
-          </div>
+          <SingleItem
+            key={item.id}
+            item={item}
+            editCompleted={editCompleted}
+            removeItem={removeItem}
+          />
         );
       })}
     </div>
