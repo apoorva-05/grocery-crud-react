@@ -5,18 +5,24 @@ import { groceryItems } from "./data/groceryItems";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./app.css";
+
+import { nanoid } from "nanoid";
+import Form from "./components/Form";
+
 const App = () => {
   const [items, setItems] = useState(groceryItems);
 
-  const editCompleted = (id) => {
-    const newItems = items.map((item) => {
-      if (item.id === id) {
-        return { ...item, completed: !item.completed };
-      }
-      return item;
-    });
+  const addItem = (itemName) => {
+    const newItem = {
+      name: itemName,
+      completed: false,
+      id: nanoid(),
+    };
 
+    const newItems = [...items, newItem];
     setItems(newItems);
+
+    toast.success("grocery item added");
   };
 
   const removeItem = (id) => {
@@ -26,15 +32,34 @@ const App = () => {
     toast.success("Item Deleted");
   };
 
+  const editCompleted = (id) => {
+    const newItems = items.map((item) => {
+      if (item.id === id) {
+        const updated = { ...item, completed: !item.completed };
+
+        if (updated.completed) {
+          toast.success("Item Completed");
+        }
+
+        return updated;
+      }
+      return item;
+    });
+
+    setItems(newItems);
+  };
+
   return (
     <section className="section-center">
+      <ToastContainer position="top-center" autoClose={2000} />
+
+      <Form addItem={addItem} />
+
       <Items
         items={items}
         editCompleted={editCompleted}
         removeItem={removeItem}
       />
-
-      <ToastContainer position="top-center" autoClose={2000} />
     </section>
   );
 };
