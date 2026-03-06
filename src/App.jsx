@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Items from "./components/Items";
 import { groceryItems } from "./data/groceryItems";
 
@@ -9,10 +9,24 @@ import "./app.css";
 import { nanoid } from "nanoid";
 import Form from "./components/Form";
 
+const getLocalStorage = () => {
+  let list = localStorage.getItem("grocery-list");
+  if (list) {
+    return JSON.parse(localStorage.getItem("grocery-list"));
+  } else {
+    return groceryItems;
+  }
+};
+
 const App = () => {
-  const [items, setItems] = useState(groceryItems);
+  const [items, setItems] = useState(getLocalStorage());
   const [editId, setEditId] = useState(null);
   const [editText, setEditText] = useState("");
+
+  // Save to local storage whenever items change
+  useEffect(() => {
+    localStorage.setItem("grocery-list", JSON.stringify(items));
+  }, [items]);
 
   const addItem = (itemName) => {
     const newItem = {
