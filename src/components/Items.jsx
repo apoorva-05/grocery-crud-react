@@ -1,10 +1,14 @@
-const Items = ({ items }) => {
+const Items = ({ items, toggleCompleted }) => {
   return (
     <div className="items">
       {items.map((item) => {
         return (
           <div className="single-item" key={item.id}>
-            <input type="checkbox" defaultChecked={item.completed} />
+            <input
+              type="checkbox"
+              checked={item.completed}
+              onChange={() => toggleCompleted(item.id)}
+            />
 
             <p
               style={{
